@@ -128,13 +128,15 @@ inquirer.prompt(mgrQuestions).then(answers =>
       if (answers.quantity > 0){
         ask(answers.quantity);
         };
-    }).then(() => {
+    }).then(async() => {
       // DEBUGGING
       console.log("Total Count:", employees.length);
-      employees.forEach((employee) => {
-        console.log("Some Employee: ", employee.getRole(),employee.name);
-      })
-    });
+      //employees.forEach(await function (employee) {
+        //console.log("Some Employee: ", employee.getRole(),employee.name);
+        let data = await render(employees);
+        fs.appendFileSync(outputPath, data, "utf8");
+      //});
+    }).catch((err) => console.log(err));
 });
 
 
